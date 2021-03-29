@@ -46,7 +46,7 @@ defmodule FinalProjectWeb.Endpoint do
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
-
+  plug CORSPlug
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
