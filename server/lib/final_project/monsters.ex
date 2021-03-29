@@ -19,6 +19,7 @@ defmodule FinalProject.Monsters do
   """
   def list_monsters do
     Repo.all(Monster)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +36,11 @@ defmodule FinalProject.Monsters do
       ** (Ecto.NoResultsError)
 
   """
-  def get_monster!(id), do: Repo.get!(Monster, id)
+  def get_monster!(id) do
+    Repo.get!(Monster, id)
+    |> Repo.preload(:user)
+  end
+
 
   @doc """
   Creates a monster.

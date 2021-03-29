@@ -9,6 +9,13 @@ function users(state = [], action) {
     }
 }
 
+function monsters(state = [], action) {
+    switch(action.type) {
+        case 'monsters/set': return action.data;
+        default: return state;
+    }
+}
+
 function user_form(state = {}, action) {
     switch (action.type) {
     case 'user_form/set':
@@ -21,7 +28,7 @@ function user_form(state = {}, action) {
 function root_reducer(state, action) {
     console.log("root_reducer", state, action);
     let reducer = combineReducers({
-        users, user_form
+        users, user_form, monsters
     });
     return reducer(state, action);
 }

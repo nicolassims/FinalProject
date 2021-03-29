@@ -13,6 +13,10 @@
 
 alias FinalProject.Repo
 alias FinalProject.Users.User
+alias FinalProject.Monsters.Monster
 
 beowulf = Repo.insert!(%User{name: "beowulf", password_hash: "beowulf1", food: 1000})
 ash = Repo.insert!(%User{name: "ash", password_hash: "catchemall", food: 0})
+
+_medusa = Repo.insert!(%Monster{name: "Medusa", nickname: "Dusa", power: 6, location: 0, user_id: beowulf.id})
+_pikachu = Repo.insert!(%Monster{name: "Pikachu", nickname: "Pika", power: 9001, location: 0, user_id: ash.id})

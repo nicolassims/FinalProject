@@ -13,6 +13,14 @@ export function fetch_users() {
     }));
 }
 
+export function fetch_monsters() {
+    api_get("/monsters").then((data) => store.dispatch({
+        type: 'monsters/set',
+        data: data,
+    }));
+}
+
 export function load_defaults() {
     fetch_users();
+    fetch_monsters();
 }

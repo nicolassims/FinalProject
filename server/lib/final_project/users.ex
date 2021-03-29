@@ -19,6 +19,7 @@ defmodule FinalProject.Users do
   """
   def list_users do
     Repo.all(User)
+    |> Repo.preload(:monsters)
   end
 
   @doc """
@@ -35,7 +36,10 @@ defmodule FinalProject.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    Repo.get!(User, id)
+    |> Repo.preload(:monsters)
+  end
 
   @doc """
   Creates a user.
