@@ -13,10 +13,11 @@ defmodule FinalProjectWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", FinalProjectWeb do
-    pipe_through :browser
+  scope "/api/v1", FinalProjectWeb do
+    pipe_through :api
 
-    get "/", PageController, :index
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/monsters", MonsterController, except: [:new, :edit]
   end
 
   # Other scopes may use custom stacks.

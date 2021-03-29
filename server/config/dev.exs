@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :final_project, FinalProject.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "final_project",
+  password: "finalproject",
   database: "final_project_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
