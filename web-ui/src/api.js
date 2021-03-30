@@ -28,7 +28,6 @@ export function fetch_users() {
 
 export function api_login(name, password) {
     api_post("/session", {name, password}).then((data) => {
-      console.log("login resp", data);
       if (data.session) {
         let action = {
           type: 'session/set',

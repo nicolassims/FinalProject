@@ -109,4 +109,12 @@ defmodule FinalProject.Users do
   def get_user_by_name!(name) do
     Repo.get_by!(User, name: name)
   end
+
+  def authenticate(name, pass) do
+    user = Repo.get_by(User, name: name)
+    case Argon2.check_pass(user, pass) do
+      {:ok, user} -> user
+      _ -> nil
+    end
+  end
 end
