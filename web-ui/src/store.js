@@ -59,6 +59,7 @@ function session(state = restore_session(), action) {
 
 function error(state = null, action) {
     switch (action.type) {
+        case 'error/clear': return null;
         case 'session/set': return null;
         case 'error/set': return action.data;
         default: return state;

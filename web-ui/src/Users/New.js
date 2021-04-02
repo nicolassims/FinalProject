@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import pick from 'lodash/pick';
 
+import store from '../store';
 import { create_user, fetch_users } from '../api';
 
-function UsersNew() {
+function UsersNew({error}) {
   let history = useHistory();
   const [user, setUser] = useState({name: "", pass1: "", pass2: ""});
 
@@ -32,52 +33,52 @@ function UsersNew() {
 
   function onSubmit(ev) {
     ev.preventDefault();
-    console.log(user);
-
     let data = pick(user, ['name', 'password']);
-    create_user(data).then(() => {
-      fetch_users();
-      history.push("/users");
+    create_user(data).then((resp) => {
+      if (resp.error) {
+        store.dispatch({type: 'error/set', data: resp.error})
+      } else {
+        fetch_users();
+        history.push("/users");
+      }
     });
   }
 
   return (
-    <Row>
-      <Col>
-        <h2>New User</h2>
-        <Form onSubmit={onSubmit}>
-          <Form.Group>
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text"
-                          onChange={(ev) => update("name", ev)}
-                          value={user.name || ""} />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password"
-                          onChange={(ev) => update("pass1", ev)}
-                          value={user.pass1 || ""} />
-            <p>{user.pass_msg}</p>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control type="password"
-                          onChange={(ev) => update("pass2", ev)}
-                          value={user.pass2 || ""} />
-          </Form.Group>
-          <Button variant="primary"
-                  type="submit"
-                  disabled={user.pass_msg !== ""}>
-            Save
-          </Button>
-        </Form>
-      </Col>
-    </Row>
+    <div>
+      <Row>
+        <Col>
+          <h2>New User</h2>
+          <Form onSubmit={onSubmit}>
+            <Form.Group>
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text"
+                            onChange={(ev) => update("name", ev)}
+                            value={user.name || ""} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password"
+                            onChange={(ev) => update("pass1", ev)}
+                            value={user.pass1 || ""} />
+              <p>{user.pass_msg}</p>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control type="password"
+                            onChange={(ev) => update("pass2", ev)}
+                            value={user.pass2 || ""} />
+            </Form.Group>
+            <Button variant="primary"
+                    type="submit"
+                    disabled={user.pass_msg !== ""}>
+              Save
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
-function state2props() {
-  return {};
-}
-
-export default connect(state2props)(UsersNew);
+export default connect(({error}) => ({error}))(UsersNew);

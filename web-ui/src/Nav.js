@@ -90,9 +90,13 @@ function AppNav({error}) {
 }
 
 function Link({to, children}) {
+
   return (
     <Nav.Item>
-      <NavLink to={to} exact className="nav-link" activeClassName="active">
+      <NavLink to={to} exact 
+        onClick={() => {store.dispatch({type: 'error/clear', data: null})}} 
+        className="nav-link" 
+        activeClassName="active">
         {children}
       </NavLink>
     </Nav.Item>

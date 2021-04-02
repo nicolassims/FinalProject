@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
-import capitalize from 'lodash/capitalize';
+import { Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
