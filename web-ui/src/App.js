@@ -6,7 +6,11 @@ import Users from "./Users";
 import Nav from "./Nav";
 import Feed from "./Feed";
 
+import * as socket from './socket.js'
+import { useEffect } from 'react'
+
 function App() {
+
   return (
     <Container>
       <Nav />

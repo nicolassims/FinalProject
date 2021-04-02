@@ -1,4 +1,5 @@
 import store from './store';
+import * as socket from './socket.js'
 
 export async function api_get(path) {
     let text = await fetch("http://localhost:4000/api/v1" + path, {});
@@ -41,6 +42,7 @@ export function api_login(name, password) {
         };
         store.dispatch(action);
       }
+      socket.connect(data.session); // TODO: Move if needed?
     });
   }
 

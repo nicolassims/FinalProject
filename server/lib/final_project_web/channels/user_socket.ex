@@ -4,6 +4,8 @@ defmodule FinalProjectWeb.UserSocket do
   ## Channels
   # channel "room:*", FinalProjectWeb.RoomChannel
 
+  channel "game", FinalProjectWeb.GameChannel
+
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
   # verification, you can put default assigns into
