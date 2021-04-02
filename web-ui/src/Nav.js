@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { useState } from 'react';
 import { api_login } from './api';
 import store from './store';
+import { ch_disconnect } from './socket.js';
 
 function LoginForm() {
   const [name, setName] = useState("");
@@ -36,6 +37,7 @@ function SessionInfo({session}) {
   function logout(ev) {
     ev.preventDefault();
     store.dispatch({ type: 'session/clear'});
+    ch_disconnect();
   }
 
   return (
