@@ -28,5 +28,6 @@ defmodule FinalProject.Users.User do
     |> cast(attrs, [:name, :password_hash, :food, :oauth_token, :oauth_token_secret])
     |> add_password_hash(attrs["password"])
     |> validate_required([:name, :password_hash, :food])
+    |> unique_constraint(:name)
   end
 end

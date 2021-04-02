@@ -18,8 +18,13 @@ async function api_post(path, data) {
     console.log(opts);
     let text = await fetch("http://localhost:4000/api/v1" + path, opts);
     return await text.json();
-  }
+}
 
+export function create_user(user) {
+  return api_post("/users", {user});
+}
+
+  
 export function fetch_users() {
     api_get("/users").then((data) => store.dispatch({
         type: 'users/set',
@@ -42,7 +47,9 @@ export function api_login(name, password) {
         };
         store.dispatch(action);
       }
-      ch_connect(data.session); // TODO: Move if needed?
+      if (data.session) {
+        ch_connect(data.session); // TODO: Move if needed?
+      }
     });
   }
 
