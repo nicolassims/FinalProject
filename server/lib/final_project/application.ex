@@ -9,6 +9,8 @@ defmodule FinalProject.Application do
     children = [
       # Start the Ecto repository
       FinalProject.Repo,
+      # Start the Repo updater
+      FinalProject.UpdateRepo,
       # Start the Telemetry supervisor
       FinalProjectWeb.Telemetry,
       # Start the PubSub system
