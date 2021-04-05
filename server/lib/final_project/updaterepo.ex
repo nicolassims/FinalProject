@@ -1,6 +1,7 @@
 defmodule FinalProject.UpdateRepo do
   use GenServer
 
+  alias FinalProject.Repo
   alias FinalProject.Users
 
   def start_link(args) do
@@ -15,9 +16,22 @@ defmodule FinalProject.UpdateRepo do
     {:ok, opts}
   end
 
-  defp loop(list) do
-    Enum.each(list, fn x ->
-      IO.inspect(x)
+  defp loop(userlist) do
+    Enum.each(userlist, fn user ->
+      newfood = user.food + 1
+      #IO.inspect("newfood")
+      #IO.inspect(newfood)
+
+      changeset = Users.change_user(user, %{food: newfood})
+      #IO.inspect("changeset")
+      #IO.inspect(changeset)
+
+
+      update = Repo.update(changeset)
+      IO.inspect("update")
+      IO.inspect(update)
+      #Users.change_user(user, %{food: newfood})
+      #IO.inspect(user.food)
     end)
   end
 end
