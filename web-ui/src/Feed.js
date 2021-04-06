@@ -1,5 +1,7 @@
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { connect } from 'react-redux';
+import { useState } from 'react';
+import { api_tweet } from './api';
 
 
 
@@ -18,11 +20,33 @@ function Post({monster}) {
   );
 }
 
+function TweetForm() {
+  const [tweet, setTweet] = useState("");
+
+  function on_submit(ev) {
+    ev.preventDefault();
+    api_tweet(tweet);
+  }
+
+  return (
+    <Form onSubmit={on_submit} inline>
+      <Form.Control name="tweet"
+                    type="text"
+                    onChange={(ev) => setTweet(ev.target.value)}
+                    value={tweet} />   
+      <Button variant="primary" type="submit">
+        Tweet  
+      </Button>          
+    </Form>
+  );
+}
+
 function Feed({monsters}) {
   let cards = monsters.map((monster) => <Post monster={monster} key={monster.id} />);
   return (
     <Row>
       { cards }
+      <TweetForm />
     </Row>
   );
 }

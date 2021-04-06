@@ -34,6 +34,10 @@ export function api_tauth(pin, token) {
   return api_post("/twitter", {pin, token});
 }
 
+export function api_tweet(tweet) {
+  return api_post("/twitter", {tweet})
+}
+
 export async function api_get(path) {
   let text = await fetch("http://localhost:4000/api/v1" + path, set_token({}));
   let resp = await text.json();
