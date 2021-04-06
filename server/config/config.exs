@@ -10,6 +10,16 @@ use Mix.Config
 config :final_project,
   ecto_repos: [FinalProject.Repo]
 
+#user locally stored (NOT IN REPO) secrets
+# for Twitter APIs
+#TODO: add add deploy script that inserts these as environment variables
+config :extwitter, :oauth, [
+  consumer_key: System.get_env("TWITTER_CONSUMER_KEY"),
+  consumer_secret: System.get_env("TWITTER_CONSUMER_SECRET"),
+  access_token: System.get_env("TWITTER_ACCESS_TOKEN"),
+  access_token_secret: System.get_env("TWITTER_ACCESS_TOKEN_SECRET")
+]
+
 # Configures the endpoint
 config :final_project, FinalProjectWeb.Endpoint,
   url: [host: "localhost"],

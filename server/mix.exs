@@ -47,7 +47,9 @@ defmodule FinalProject.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:cors_plug, "~> 2.0"},
       {:argon2_elixir, "~> 2.0"},
-      {:elixir_make, "~> 0.6"}
+      {:elixir_make, "~> 0.6"},
+      {:extwitter, "~> 0.12"},
+      {:oauther, "~> 1.1"}
     ]
   end
 

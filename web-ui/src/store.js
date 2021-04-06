@@ -16,6 +16,31 @@ function monsters(state = [], action) {
     }
 }
 
+function save_twitter(twitter) {
+    localStorage.setItem("twitter", JSON.stringify(twitter));
+}
+
+function restore_twitter() {
+    let twitter = localStorage.getItem("twitter");
+    if (!twitter) {
+        return null;
+    }
+    twitter = JSON.parse(twitter);
+    return twitter;
+}
+
+function twitter(state = restore_twitter(), action) {
+    switch(action.type) {
+        case 'twitter/set': 
+            save_twitter(action.data);
+            return action.data;
+        case 'session/clear':
+            localStorage.removeItem("twitter");
+            return null;
+        default: return state;
+    }
+}
+
 function user_form(state = {}, action) {
     switch (action.type) {
     case 'user_form/set':
@@ -68,7 +93,7 @@ function error(state = null, action) {
 
 function root_reducer(state, action) {
     let reducer = combineReducers({
-        users, user_form, monsters, session, error
+        users, user_form, monsters, session, error, twitter
     });
     return reducer(state, action);
 }

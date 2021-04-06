@@ -19,6 +19,7 @@ defmodule FinalProjectWeb.Router do
     resources "/users", UserController, except: [:new, :edit]
     resources "/monsters", MonsterController, except: [:new, :edit]
     resources "/session", SessionController, only: [:create]
+    resources "/twitter", TwitterController, only: [:index, :create]
   end
 
   # Other scopes may use custom stacks.

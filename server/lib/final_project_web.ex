@@ -24,6 +24,8 @@ defmodule FinalProjectWeb do
       import Plug.Conn
       import FinalProjectWeb.Gettext
       alias FinalProjectWeb.Router.Helpers, as: Routes
+
+      import FinalProjectWeb.Helpers
     end
   end
 
