@@ -20,7 +20,7 @@ defmodule FinalProjectWeb.GameChannel do
   @impl true
   def handle_in("ping", _payload, socket) do
     list = Enum.reduce(Users.list_users(), [], fn user, acc ->
-      acc = [user.food | acc]
+      [%{name: user.name, food: user.food} | acc]
     end)
     {:reply, {:ok, list}, socket}
   end
