@@ -1,5 +1,7 @@
 import store from './store';
-import { ch_connect, ch_ping } from './socket.js'
+import { ch_connect } from './socket.js'
+
+let pinger = null;
 
 export async function api_get(path) {
   let text = await fetch("http://localhost:4000/api/v1" + path, {});
@@ -25,6 +27,12 @@ export function create_user(user) {
 }
 
 export function fetch_users() {
+  if (pinger != null) {//if there is currently an interval set up...
+    clearInterval(pinger);//...clear the interval
+    pinger = null;//...and assign the interval to null for future reference
+  }
+  pinger = window.setInterval(() => { fetch_users() }, 1000);//fetch a fresh copy of the users every second.
+
   api_get("/users").then((data) => store.dispatch({
       type: 'users/set',
       data: data,
@@ -48,7 +56,6 @@ export function api_login(name, password) {
     }
     if (data.session) {
       ch_connect(data.session); // TODO: Move if needed?
-      window.setInterval(() => { ch_ping() }, 1000);
     }
   });
 }

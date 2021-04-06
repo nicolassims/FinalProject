@@ -1,4 +1,4 @@
-import {Socket} from "phoenix"
+import {Socket} from "phoenix";
 
 // switch out hard-coded url to a config
 let socket = null;
@@ -24,16 +24,4 @@ export function ch_disconnect() {
     channel = null;
 
     console.log("Disconnecting");
-}
-
-export function ch_ping() {
-    if (channel) {
-        channel.push("ping", {})
-            .receive("ok", resp => {
-                console.log("received back ping", resp)
-            })
-            .receive("error", resp => {
-                console.log("unable to ping", resp)
-            });
-    }
 }
