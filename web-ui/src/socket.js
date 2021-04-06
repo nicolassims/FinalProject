@@ -25,3 +25,15 @@ export function ch_disconnect() {
 
     console.log("Disconnecting");
 }
+
+export function ch_ping() {
+    if (channel) {
+        channel.push("ping", {})
+            .receive("ok", resp => {
+                console.log("received back ping", resp)
+            })
+            .receive("error", resp => {
+                console.log("unable to ping", resp)
+            });
+    }
+}

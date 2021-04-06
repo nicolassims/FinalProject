@@ -1,6 +1,8 @@
 defmodule FinalProjectWeb.GameChannel do
   use FinalProjectWeb, :channel
 
+  alias FinalProject.Users
+
   @impl true
   def join("game", payload, socket) do
     IO.inspect("Joining channel")
@@ -16,8 +18,11 @@ defmodule FinalProjectWeb.GameChannel do
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
-  def handle_in("ping", payload, socket) do
-    {:reply, {:ok, payload}, socket}
+  def handle_in("ping", _payload, socket) do
+    list = Enum.reduce(Users.list_users(), [], fn user, acc ->
+      acc = [user.food | acc]
+    end)
+    {:reply, {:ok, list}, socket}
   end
 
   # It is also common to receive messages from the client and

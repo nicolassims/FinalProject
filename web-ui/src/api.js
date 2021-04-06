@@ -1,5 +1,5 @@
 import store from './store';
-import { ch_connect } from './socket.js'
+import { ch_connect, ch_ping } from './socket.js'
 
 export async function api_get(path) {
   let text = await fetch("http://localhost:4000/api/v1" + path, {});
@@ -24,7 +24,6 @@ export function create_user(user) {
   return api_post("/users", {user});
 }
 
-  
 export function fetch_users() {
   api_get("/users").then((data) => store.dispatch({
       type: 'users/set',
@@ -49,6 +48,7 @@ export function api_login(name, password) {
     }
     if (data.session) {
       ch_connect(data.session); // TODO: Move if needed?
+      window.setInterval(() => { ch_ping() }, 1000);
     }
   });
 }
