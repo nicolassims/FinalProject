@@ -1,7 +1,6 @@
 defmodule FinalProject.UpdateRepo do
   use GenServer
 
-  alias FinalProject.Repo
   alias FinalProject.Users
 
   def start_link(args) do
@@ -19,9 +18,7 @@ defmodule FinalProject.UpdateRepo do
 
   defp loop() do
     Enum.each(Users.list_users(), fn user ->
-      newfood = user.food + 1
-      changeset = Users.change_user(user, %{food: newfood})
-      Repo.update(changeset)
+      Users.update_user(user, %{food: user.food + 1})
     end)
 
     :timer.sleep(1_000)
