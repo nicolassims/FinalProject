@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 import { useState } from 'react';
 import { api_tweet } from './api';
 
-
-
 function Post({monster}) {
+  let location = monster.location === 0 ? "The Farm" : "The Wild";
   return (
     <Col>
       <Card>
-        <Card.Title>
-          {monster.name}
-        </Card.Title>
-        <Card.Text>
+        <Card.Title className="cardbody">
           {monster.nickname}
+        </Card.Title>
+        <Card.Text className="cardbody">
+          Species: {monster.name}<br />
+          Power: {monster.power}<br />
+          Location: {location}<br />
         </Card.Text>
       </Card>
     </Col>
