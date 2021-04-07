@@ -3,7 +3,7 @@ import { Nav, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { api_login, get_twitter_auth, api_tauth } from './api';
+import { api_login, api_tauth } from './api';
 import store from './store';
 import { ch_disconnect } from './socket.js';
 
