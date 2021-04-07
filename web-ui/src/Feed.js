@@ -16,6 +16,9 @@ function Post({monster}) {
           Power: {monster.power}<br />
           Location: {location}<br />
         </Card.Text>
+        <Button>
+          Press here.
+        </Button>
       </Card>
     </Col>
   );
@@ -30,33 +33,50 @@ function TweetForm() {
   }
 
   return (
-    <Form onSubmit={on_submit} inline>
-      <Form.Control name="tweet"
-                    type="text"
-                    onChange={(ev) => setTweet(ev.target.value)}
-                    value={tweet} />   
-      <Button variant="primary" type="submit">
-        Tweet  
-      </Button>          
-    </Form>
-  );
-}
-
-function Feed({monsters}) {
-  let cards = monsters.reduce((acc, monster) => {
-    let sess = JSON.parse(localStorage.getItem("session"));
-    if (sess != null && monster.user.id === sess.user_id) {
-      acc.push(<Post monster={monster} key={monster.id} />);
-    }
-    return acc;
-  }, [])
-
-  return (
     <Row>
-      { cards }
-      <TweetForm />
+      <Form onSubmit={on_submit} inline>
+        <Form.Control name="tweet"
+                      type="text"
+                      onChange={(ev) => setTweet(ev.target.value)}
+                      value={tweet} />   
+        <Button variant="primary" type="submit">
+          Tweet  
+        </Button>          
+      </Form>
     </Row>
   );
 }
 
-export default connect(({monsters}) => ({monsters}))(Feed);
+function Feed({monsters, users}) {
+  let sess = JSON.parse(localStorage.getItem("session"));
+  let cards = null;
+  let food = null;
+  if (sess != null) {
+    cards = monsters.reduce((acc, monster) => {
+      if (monster.user.id === sess.user_id) {
+        acc.push(<Post monster={monster} key={monster.id} />);
+      }
+      return acc;
+    }, [])
+
+    food = users.find(value => value.id === sess.user_id).food;
+
+    return (
+      <div>
+        <TweetForm />
+        <Row>
+          <h1>Food: { food }</h1>
+        </Row>
+        <Row>
+          { cards }<br />
+        </Row>
+      </div>
+    );
+  } else {
+    return (
+      <h1>Log into the game to access your homepage!</h1>
+    );
+  }
+}
+
+export default connect(({monsters, users}) => ({monsters, users}))(Feed);
