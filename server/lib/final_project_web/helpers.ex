@@ -2,15 +2,14 @@ defmodule FinalProjectWeb.Helpers do
 
   # 1. get request token
   def get_request_token(url \\ nil)  do
+    config = ExTwitter.configure()
     resp = ExTwitter.request_token(url)
-    IO.inspect(resp)
     resp.oauth_token
   end
 
   # 2. get authoprize url using token
   def get_authorize_url(token) do
     resp = ExTwitter.authorize_url(token)
-    IO.inspect(resp)
     elem(resp, 1)
   end
 
@@ -22,7 +21,6 @@ defmodule FinalProjectWeb.Helpers do
     )
 
     resp = elem(resp, 1)
-    IO.inspect(resp)
 
     %{"name" => resp.screen_name,
       "id" => resp.user_id,
@@ -41,23 +39,25 @@ defmodule FinalProjectWeb.Helpers do
     |> Keyword.put(:access_token, oauth_token)
     |> Keyword.put(:access_token_secret, oauth_token_secret)
 
-    IO.inspect(config)
     ExTwitter.Config.set(:process, config)
   end
 
   def get_status(access) do
     set_access(access)
     tl = ExTwitter.API.Timelines.user_timeline()
-    IO.inspect(tl)
     tweet = Enum.fetch!(tl, 0)
-    IO.inspect(tweet)
     tweet.text
   end
 
   def post_status(access, status) do
     set_access(access)
     resp = ExTwitter.API.Tweets.update(status)
-    IO.inspect(resp)
     resp
+  end
+
+  def get_likes_by_id(access, id) do
+    set_access(access)
+    tweet = ExTwitter.API.Tweets.show(id)
+    tweet.favorite_count
   end
 end

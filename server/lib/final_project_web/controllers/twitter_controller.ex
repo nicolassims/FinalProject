@@ -9,9 +9,13 @@ defmodule FinalProjectWeb.TwitterController do
 
   def index(conn, _params) do
     req_token = get_request_token()
+    IO.inspect("REQUEST TOKEN:")
     IO.inspect(req_token)
 
     auth_url = get_authorize_url(req_token)
+
+    IO.inspect("URL:")
+    IO.inspect(auth_url)
 
     conn
     |> put_resp_header("content-type", "application/json; charset=UTF-8")
@@ -43,7 +47,8 @@ defmodule FinalProjectWeb.TwitterController do
 
     access = %{"oauth_token" => user.oauth_token, "oauth_token_secret" => user.oauth_token_secret}
 
-    post_status(access, tweet)
+    tweet = post_status(access, tweet)
+    FinalProject.TrackTweet.start(tweet.id, access, user)
 
     conn
       |> put_resp_header("content-type", "application/json; charset=UTF-8")
