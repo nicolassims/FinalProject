@@ -1,8 +1,6 @@
 import store from './store';
 import { ch_connect } from './socket.js'
 
-let pinger = null;
-
 function set_token(opts) {
   let state = store.getState();
   let token = state?.session?.token;
@@ -75,12 +73,6 @@ export function create_user(user) {
 }
 
 export function fetch_users() {
-  if (pinger != null) {//if there is currently an interval set up...
-    clearInterval(pinger);//...clear the interval
-    pinger = null;//...and assign the interval to null for future reference
-  }
-  //pinger = window.setInterval(() => { fetch_users() }, 1000);//fetch a fresh copy of the users every second.
-
   api_get("/users").then((data) => store.dispatch({
       type: 'users/set',
       data: data,

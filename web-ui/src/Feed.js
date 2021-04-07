@@ -2,7 +2,6 @@ import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import { useState } from 'react';
 import { api_tweet, update_monster, update_user } from './api';
-import { update } from 'lodash';
 
 function ChangeLocation(monster) {
   if (monster.location === 0) {
@@ -11,13 +10,11 @@ function ChangeLocation(monster) {
     monster.location = 0;
   }
   update_monster(monster);
-  //alert(monster.name + " should have location changed");
 }
 
 function FeedMonster(monster) {
   monster.user.food -= 10;
   monster.power += 1;
-  alert(monster.name + " should be fed, +1 power, -10 food");
   update_user(monster.user);
   update_monster(monster);
 }
