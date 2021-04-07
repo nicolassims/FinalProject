@@ -68,7 +68,7 @@ function Feed({monsters, users}) {
           <h1>Food: { food }</h1>
         </Row>
         <Row>
-          { cards }<br />
+          { cards }
         </Row>
       </div>
     );
