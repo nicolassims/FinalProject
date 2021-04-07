@@ -18,7 +18,16 @@ defmodule FinalProject.UpdateRepo do
 
   defp loop() do
     Enum.each(Users.list_users(), fn user ->
-      Users.update_user(user, %{food: user.food + 1})
+      foodcount = Enum.reduce(user.monsters, 0, fn monster, acc ->
+        if (monster.location == 0) do#if they're on the farm, then increase your food count.
+          round(:math.sqrt(acc + monster.power))
+        else#otherwise, increase the monster's power. But I still need to implement this.
+          acc
+        end
+      end)
+      if (foodcount > 0) do
+        Users.update_user(user, %{food: user.food + foodcount})
+      end
     end)
 
     :timer.sleep(1_000)
