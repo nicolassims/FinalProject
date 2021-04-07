@@ -57,6 +57,19 @@ async function api_post(path, data) {
   return await text.json();
 }
 
+async function api_patch(path, data) {
+  let opts = {
+    method: 'PATCH',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  };
+  console.log(opts);
+  let text = await fetch("http://localhost:4000/api/v1" + path, set_token(opts));
+  return await text.json();
+}
+
 export function create_user(user) {
   return api_post("/users", {user});
 }
@@ -72,6 +85,10 @@ export function fetch_users() {
       type: 'users/set',
       data: data,
   }));
+}
+
+export function update_user(user) {
+  return api_patch("/users/" + user.id, {user});
 }
 
 export function api_login(name, password) {
@@ -94,6 +111,10 @@ export function api_login(name, password) {
       get_twitter_auth();
     }
   });
+}
+
+export function update_monster(monster) {
+  return api_patch("/monsters/" + monster.id, {monster});
 }
 
 export function fetch_monsters() {

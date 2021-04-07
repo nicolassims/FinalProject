@@ -1,14 +1,25 @@
 import { Row, Col, Card, Form, Button } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { api_tweet } from './api';
+import { api_tweet, update_monster, update_user } from './api';
+import { update } from 'lodash';
 
 function ChangeLocation(monster) {
-  alert(monster.name + " should have location changed");
+  if (monster.location === 0) {
+    monster.location = 1;
+  } else {
+    monster.location = 0;
+  }
+  update_monster(monster);
+  //alert(monster.name + " should have location changed");
 }
 
 function FeedMonster(monster) {
-  alert(monster.name + " should be fed");
+  monster.user.food -= 10;
+  monster.power += 1;
+  alert(monster.name + " should be fed, +1 power, -10 food");
+  update_user(monster.user);
+  update_monster(monster);
 }
 
 function Post({monster}) {
