@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import { useState } from 'react';
 import { api_tweet } from './api';
 
+function ChangeLocation(monster) {
+  alert(monster.name + " should have location changed");
+}
+
+function FeedMonster(monster) {
+  alert(monster.name + " should be fed");
+}
+
 function Post({monster}) {
   let location = monster.location === 0 ? "The Farm" : "The Wild";
   return (
@@ -16,9 +24,8 @@ function Post({monster}) {
           Power: {monster.power}<br />
           Location: {location}<br />
         </Card.Text>
-        <Button>
-          Press here.
-        </Button>
+        <Button onClick={() => ChangeLocation(monster) }>Switch Location</Button>
+        <Button onClick={() => FeedMonster(monster) }>Feed Monster</Button>
       </Card>
     </Col>
   );
@@ -51,7 +58,7 @@ function Feed({monsters, users}) {
   let sess = JSON.parse(localStorage.getItem("session"));
   let cards = null;
   let food = null;
-  if (sess != null) {
+  if (sess != null && users.length !== 0) {
     cards = monsters.reduce((acc, monster) => {
       if (monster.user.id === sess.user_id) {
         acc.push(<Post monster={monster} key={monster.id} />);
@@ -59,7 +66,7 @@ function Feed({monsters, users}) {
       return acc;
     }, [])
 
-    food = users.find(value => value.id === sess.user_id).food;
+    food = users.find(value => { return value.id === sess.user_id; }).food;
 
     return (
       <div>
