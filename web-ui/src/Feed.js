@@ -42,7 +42,14 @@ function TweetForm() {
 }
 
 function Feed({monsters}) {
-  let cards = monsters.map((monster) => <Post monster={monster} key={monster.id} />);
+  let cards = monsters.reduce((acc, monster) => {
+    let sess = JSON.parse(localStorage.getItem("session"));
+    if (sess != null && monster.user.id === sess.user_id) {
+      acc.push(<Post monster={monster} key={monster.id} />);
+    }
+    return acc;
+  }, [])
+
   return (
     <Row>
       { cards }
