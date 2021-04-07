@@ -7,7 +7,7 @@ function Post({monster}) {
   let location = monster.location === 0 ? "The Farm" : "The Wild";
   return (
     <Col>
-      <Card>
+      <Card className = "card">
         <Card.Title className="cardbody">
           {monster.nickname}
         </Card.Title>
