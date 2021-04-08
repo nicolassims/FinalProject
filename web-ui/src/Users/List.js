@@ -37,7 +37,6 @@ function UsersList({users}) {
       </Row>
     </div>
   );
-
 }
 
 function state2props({users}) {

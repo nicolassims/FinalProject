@@ -46,12 +46,22 @@ function CreateMonster(monsters, user) {
   }
 }
 
+function NicknameMonster(monster) {
+  let nickname = prompt("What would you like to nickname this " + monster.name + "?");
+  if (nickname != null) {
+    monster.nickname = nickname;
+    update_monster(monster);
+  }
+}
+
 function Post({monster}) {
   let location = monster.location === 0 ? "The Farm" : "The Wild";
   return (
     <Col>
       <Card className = "card">
-        <Card.Title className="cardbody">
+        <Card.Title title="Click to rename monster!"
+          className="cardbody nickname" 
+          onClick={() => NicknameMonster(monster)}>
           {monster.nickname}
         </Card.Title>
         <Card.Text className="cardbody">
