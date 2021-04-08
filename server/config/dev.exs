@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :cors_plug,
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:3000", "http://127.0.0.1:3000"],
   max_age: 86400,
   methods: ["GET", "POST", "PATCH", "DELETE"],
   headers: ["x-auth", "content-type"]
