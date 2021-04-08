@@ -13,8 +13,9 @@ function ChangeLocation(monster) {
 }
 
 function FeedMonster(monster) {
-  monster.user.food -= 10;
-  monster.power += 1;
+  let foodamount = Math.round(monster.user.food / 10);
+  monster.user.food -= foodamount;
+  monster.power += foodamount;
   update_user(monster.user);
   update_monster(monster);
 }
