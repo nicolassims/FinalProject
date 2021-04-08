@@ -72,6 +72,10 @@ export function create_user(user) {
   return api_post("/users", {user});
 }
 
+export function create_monster(monster) {
+  return api_post("/monsters", {monster});
+}
+
 export function fetch_users() {
   api_get("/users").then((data) => store.dispatch({
       type: 'users/set',

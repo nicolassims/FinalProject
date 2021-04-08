@@ -12,7 +12,7 @@ defmodule FinalProjectWeb.Helpers do
   # get monsters list and simplify into simple data to send through monsters Channel
   def broadcast_monsters() do
     monsters = Monsters.list_monsters()
-    monsters = Enum.map(monsters, fn m -> %{id: m.id, user: %{id: m.user.id, food: m.user.food, name: m.user.name}, power: m.power, name: m.name, location: m.location} end)
+    monsters = Enum.map(monsters, fn m -> %{id: m.id, user: %{id: m.user.id, food: m.user.food, name: m.user.name}, power: m.power, name: m.name, location: m.location, nickname: m.nickname} end)
     FinalProjectWeb.Endpoint.broadcast("game", "updatemonsters", %{monsters: monsters})
   end
 
