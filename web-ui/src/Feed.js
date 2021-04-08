@@ -95,7 +95,9 @@ function Feed({monsters, users}) {
   let foodgain = 0;
   let nummonsters = 0;
   if (sess != null && users.length !== 0) {
-    cards = monsters.reduce((acc, monster) => {
+    cards = monsters
+      .sort((a, b) => (a.power < b.power) ? 1 : -1)
+      .reduce((acc, monster) => {
       if (monster.user.id === sess.user_id) {
         acc.push(<Post monster={monster} key={monster.id} />);
         foodgain += Math.round(Math.sqrt(monster.power));
