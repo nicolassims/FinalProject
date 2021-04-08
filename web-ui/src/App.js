@@ -7,7 +7,7 @@ import Feed from './Feed';
 import UsersList from './Users/List';
 import UsersNew from './Users/New';
 import store from './store';
-import { set_user_cb, ch_connect } from './socket';
+import { set_user_cb, set_monster_cb, ch_connect } from './socket';
 import { connect } from 'react-redux';
 import { get_twitter_auth } from './api';
 
@@ -17,6 +17,13 @@ function App({session}) {
   set_user_cb((data) => {
     store.dispatch({
       type: 'users/set',
+      data: data,
+    })
+  });
+
+  set_monster_cb((data) => {
+    store.dispatch({
+      type: 'monsters/set',
       data: data,
     })
   });

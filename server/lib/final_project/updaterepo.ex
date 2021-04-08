@@ -36,6 +36,7 @@ defmodule FinalProject.UpdateRepo do
     :timer.sleep(1_000)
 
     Helpers.broadcast_users()
+    Helpers.broadcast_monsters()
 
     loop()
   end
