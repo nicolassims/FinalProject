@@ -1,4 +1,13 @@
 defmodule FinalProjectWeb.Helpers do
+  alias FinalProject.Users
+
+
+  # get users list and simplify into simple data to send through users Channel
+  def broadcast_users() do
+    users = Users.list_users()
+    users = Enum.map(users, fn u -> %{id: u.id, food: u.food, name: u.name} end)
+    FinalProjectWeb.Endpoint.broadcast("game", "update", %{users: users})
+  end
 
   # 1. get request token
   def get_request_token(url \\ nil)  do

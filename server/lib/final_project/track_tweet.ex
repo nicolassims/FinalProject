@@ -4,6 +4,7 @@ defmodule FinalProject.TrackTweet do
 
   alias FinalProject.Users
   alias FinalProject.Users.User
+  alias FinalProjectWeb.Helpers
 
   # starts async timer off
   def start(id, access, user) do
@@ -27,7 +28,8 @@ defmodule FinalProject.TrackTweet do
       IO.inspect("INCREASE")
       gain_per_like = 100 ######################### AMOUNT (food)
       diff = cur_likes - max_likes
-      FinalProject.Users.update_user(user, %{food: user.food + (gain_per_like * diff)})
+      Users.update_user(user, %{food: user.food + (gain_per_like * diff)})
+      Helpers.broadcast_users()
     else
       IO.inspect("NO CHANGE")
     end

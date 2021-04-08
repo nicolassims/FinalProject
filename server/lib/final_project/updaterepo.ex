@@ -2,6 +2,7 @@ defmodule FinalProject.UpdateRepo do
   use GenServer
 
   alias FinalProject.Users
+  alias FinalProjectWeb.Helpers
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
@@ -31,6 +32,8 @@ defmodule FinalProject.UpdateRepo do
     end)
 
     :timer.sleep(1_000)
+
+    Helpers.broadcast_users()
 
     loop()
   end
