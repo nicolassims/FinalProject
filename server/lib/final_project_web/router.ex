@@ -16,8 +16,8 @@ defmodule FinalProjectWeb.Router do
   scope "/api/v1", FinalProjectWeb do
     pipe_through :api
 
-    resources "/users", UserController, except: [:new, :edit]
-    resources "/monsters", MonsterController, except: [:new, :edit]
+    resources "/users", UserController, except: [:new, :edit, :delete, :update] # no delete or update users
+    resources "/monsters", MonsterController, except: [:new, :edit, :delete] # no delete monsters
     resources "/session", SessionController, only: [:create]
     resources "/twitter", TwitterController, only: [:index, :create]
   end

@@ -4,10 +4,17 @@ defmodule FinalProjectWeb.MonsterController do
   alias FinalProject.Monsters
   alias FinalProject.Monsters.Monster
 
+  alias FinalProjectWeb.Plugs
+  plug Plugs.RequireAuth
+
   action_fallback FinalProjectWeb.FallbackController
 
   def index(conn, _params) do
+    user = conn.assigns[:current_user]
+
     monsters = Monsters.list_monsters()
+    |> Enum.filter(fn mon -> mon.user.id == user.id end) # monsters owned by current user
+
     render(conn, "index.json", monsters: monsters)
   end
 

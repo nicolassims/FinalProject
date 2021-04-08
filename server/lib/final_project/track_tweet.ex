@@ -3,15 +3,11 @@ defmodule FinalProject.TrackTweet do
   # updating food on new maximum likes within a time limit
 
   alias FinalProject.Users
-  alias FinalProject.Users.User
   alias FinalProjectWeb.Helpers
 
   # starts async timer off
   def start(id, access, user) do
-    IO.inspect("STARTED")
-    IO.inspect(id)
-    IO.inspect(access)
-    seconds = 30 ########################### DURATION (seconds)
+    seconds = 60 ########################### DURATION (seconds)
     Task.async(fn ->
       check(id, access, user, 0, seconds)
     end)
@@ -20,7 +16,7 @@ defmodule FinalProject.TrackTweet do
 
   # fetch the tweet and update if max likes is newer
   def check(id, access, user, max_likes, time_left) do
-    IO.inspect("CHECKING")
+    IO.inspect("CHECKING TWEET")
 
     cur_likes = FinalProjectWeb.Helpers.get_likes_by_id(access, id)
 
