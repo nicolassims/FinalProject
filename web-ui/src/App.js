@@ -6,8 +6,27 @@ import Nav from "./Nav";
 import Feed from './Feed';
 import UsersList from './Users/List';
 import UsersNew from './Users/New';
+import store from './store';
+import { set_user_cb, ch_connect } from './socket';
+import { connect } from 'react-redux';
+import { get_twitter_auth } from './api';
 
-function App() {
+function App({session}) {
+  
+  // set socket cb to allow updating users from server through socket
+  set_user_cb((data) => {
+    store.dispatch({
+      type: 'users/set',
+      data: data,
+    })
+  });
+
+  // if session is saved, connect socket, and get twitter auth url
+  if (session) {
+    ch_connect(session); // TODO: Move if needed?
+    get_twitter_auth();
+  }
+
   return (
     <Container>
       <Nav />
@@ -26,4 +45,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(({session}) => ({session}))(App);

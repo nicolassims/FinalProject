@@ -79,7 +79,7 @@ export function fetch_users() {
     clearInterval(pinger);//...clear the interval
     pinger = null;//...and assign the interval to null for future reference
   }
-  pinger = window.setInterval(() => { fetch_users() }, 1000);//fetch a fresh copy of the users every second.
+  //pinger = window.setInterval(() => { fetch_users() }, 1000);//fetch a fresh copy of the users every second.
 
   api_get("/users").then((data) => store.dispatch({
       type: 'users/set',
