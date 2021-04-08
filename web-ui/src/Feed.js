@@ -26,10 +26,10 @@ function CreateMonster(monsters, user) {
   }, 0);
   let cost = Math.pow(10, nummonsters) - 1;
   if (user.food >= cost) {
-    let choices = ['Dragon', 'Medusa', 'Pikachu', 'Werewolf', 'Jerry', 'Creeper', 'Ghost'];
+    let choices = ['Dragon', 'Medusa', 'Pikachu', 'Werewolf', 'Jerry', 'Creeper', 'Ghost', 'Demon', 'Mimic', 'Ooze', 'Skeleton'];
     let randchoice = choices[Math.floor(Math.random() * choices.length)];
 
-    let nickchoices = ['Draco', 'Dusa', 'Sparky', 'Howler', 'Jerry', 'Ssboom', 'Boo'];
+    let nickchoices = ['Draco', 'Dusa', 'Sparky', 'Howler', 'Jerry', 'Ssboom', 'Boo', 'Satanael', 'Doopliss', 'Rimuru', 'Sans'];
     let randnickchoice = nickchoices[Math.floor(Math.random() * nickchoices.length)];
 
     let monster = {
