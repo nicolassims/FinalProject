@@ -40,7 +40,6 @@ function CreateMonster(monsters, user) {
       user_id: user.id
     }
 
-    console.log(user);
     user.food -= cost;
     update_user(user);
     create_monster(monster);
