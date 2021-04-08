@@ -3,7 +3,7 @@ import { Nav, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { api_login, api_pinauth } from './api';
+import { api_login } from './api';
 import store from './store';
 import { ch_disconnect } from './socket.js';
 
@@ -47,30 +47,6 @@ function SessionInfo({session}) {
     </p>
   );
 }
-
-function TwitterPinForm({twitter}) {
-  const [pin, setPin] = useState("");
-
-  function on_submit(ev) {
-    ev.preventDefault();
-    console.log(pin);
-    api_pinauth(pin, twitter.req_token);
-  }
-
-  return (
-    <Form onSubmit={on_submit} inline>
-      <Form.Control name="pin"
-                    type="text"
-                    onChange={(ev) => setPin(ev.target.value)}
-                    value={pin} />   
-      <Button variant="primary" type="submit">
-        Authorize  
-      </Button>          
-    </Form>
-  );
-}
-
-//const TwitterForm = connect(({twitter}) => ({twitter}))(TwitterPinForm);
 
 function LOI({session, twitter}) {
   if (session) {

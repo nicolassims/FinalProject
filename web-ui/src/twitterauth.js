@@ -1,4 +1,4 @@
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { api_tokenauth } from './api';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
