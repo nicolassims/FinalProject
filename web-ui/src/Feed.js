@@ -67,10 +67,12 @@ function Feed({monsters, users}) {
   let sess = JSON.parse(localStorage.getItem("session"));
   let cards = null;
   let food = null;
+  let foodgain = 0;
   if (sess != null && users.length !== 0) {
     cards = monsters.reduce((acc, monster) => {
       if (monster.user.id === sess.user_id) {
         acc.push(<Post monster={monster} key={monster.id} />);
+        foodgain += Math.round(Math.sqrt(monster.power));
       }
       return acc;
     }, [])
@@ -82,6 +84,9 @@ function Feed({monsters, users}) {
         <TweetForm />
         <Row>
           <h1>Food: { food }</h1>
+        </Row>
+        <Row>
+          <h4>Food per second: { foodgain }</h4>
         </Row>
         <Row>
           { cards }
