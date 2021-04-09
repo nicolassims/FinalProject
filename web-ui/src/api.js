@@ -52,6 +52,7 @@ export function api_tweet(tweet) {
 
 export async function api_get(path) {
   let text = await fetch("http://monster-browser.tkwaffle.site/api/v1" + path, set_token({}));
+  console.log(text);
   let resp = await text.json();
   return resp.data;
 }
