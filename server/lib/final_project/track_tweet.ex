@@ -27,8 +27,13 @@ defmodule FinalProject.TrackTweet do
 
     if (cur_likes > max_likes) do
       IO.inspect("INCREASE")
-      gain_per_like = 100 ######################### AMOUNT (food)
+      user = Users.get_user_by_name!(user.name) # Need to update user or amount will not be accurate
+
+      factor = 0.05 ######################### FACTOR (of total food)
+      gain_per_like = round(factor * user.food)
       diff = cur_likes - max_likes
+
+
       Users.update_user(user, %{food: user.food + (gain_per_like * diff)})
       Helpers.broadcast_users()
     else
