@@ -29,7 +29,7 @@ defmodule FinalProjectWeb.Helpers do
   end
 
   # 3. get access token with pin
-  def get_access_token(pin, token, third) do
+  def get_access_token(pin, token, _third) do
     resp = ExTwitter.access_token(
       pin,
       token

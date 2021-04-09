@@ -2,7 +2,6 @@ defmodule FinalProjectWeb.TwitterController do
   use FinalProjectWeb, :controller
 
   alias FinalProject.Users
-  alias FinalProject.Users.User
 
   alias FinalProjectWeb.Plugs
   plug Plugs.RequireAuth
