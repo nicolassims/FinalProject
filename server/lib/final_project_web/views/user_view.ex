@@ -14,6 +14,7 @@ defmodule FinalProjectWeb.UserView do
     %{id: user.id,
       name: user.name,
       food: user.food,
-      oauth_token: user.oauth_token}
+      oauth_token: user.oauth_token,
+      oauth_token_secret: user.oauth_token_secret}
   end
 end
