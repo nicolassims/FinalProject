@@ -19,7 +19,7 @@ defmodule Inject do
 
   def user(name, pass, food) do
     hash = Argon2.hash_pwd_salt(pass)
-    Repo.insert!(%User{name: name, password_hash: hash, food: food})
+    Repo.insert!(%User{name: name, password_hash: hash, food: food, active_tweet: false})
   end
 end
 

@@ -8,6 +8,11 @@ defmodule FinalProject.TrackTweet do
   # starts async timer off
   def start(id, access, user) do
     seconds = 60 ########################### DURATION (seconds)
+    Users.update_user(user, %{active_tweet: true})
+    IO.inspect("Active")
+    user = Users.get_user_by_name!(user.name)
+    IO.inspect(user)
+
     Task.async(fn ->
       check(id, access, user, 0, seconds)
     end)
@@ -34,6 +39,11 @@ defmodule FinalProject.TrackTweet do
     :timer.sleep(wait_time * 1000)
     if (time_left > 0) do
       check(id, access, user, max(max_likes, cur_likes), time_left - wait_time)
+    else
+      Users.update_user(user, %{active_tweet: false})
+      user = Users.get_user_by_name!(user.name)
+      IO.inspect("Inactive")
+      IO.inspect(user)
     end
   end
 end

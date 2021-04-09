@@ -73,11 +73,18 @@ defmodule FinalProjectWeb.TwitterController do
 
     access = %{"oauth_token" => user.oauth_token, "oauth_token_secret" => user.oauth_token_secret}
 
-    tweet = post_status(access, tweet)
-    FinalProject.TrackTweet.start(tweet.id, access, user)
+    IO.inspect(user)
+    if (user.active_tweet) do
+      conn
+        |> put_resp_header("content-type", "application/json; charset=UTF-8")
+        |> send_resp(:unauthorized, Jason.encode!(%{error: "Already have an active tweet."}))
+    else
+      tweet = post_status(access, tweet)
+      FinalProject.TrackTweet.start(tweet.id, access, user)
 
-    conn
-      |> put_resp_header("content-type", "application/json; charset=UTF-8")
-      |> send_resp(:created, Jason.encode!(%{}))
+      conn
+        |> put_resp_header("content-type", "application/json; charset=UTF-8")
+        |> send_resp(:created, Jason.encode!(%{}))
+    end
   end
 end

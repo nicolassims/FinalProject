@@ -13,6 +13,7 @@ defmodule FinalProjectWeb.UserController do
 
   def create(conn, %{"user" => user_params}) do
     user_params = Map.put(user_params, "food", 0)
+    |> Map.put("active_tweet", false)
     case Users.create_user(user_params) do
       {:ok, %User{} = user} ->
         conn

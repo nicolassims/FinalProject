@@ -8,6 +8,7 @@ defmodule FinalProject.Users.User do
     field :oauth_token, :string
     field :oauth_token_secret, :string
     field :password_hash, :string
+    field :active_tweet, :boolean
 
     timestamps()
 
@@ -25,9 +26,9 @@ defmodule FinalProject.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :password_hash, :food, :oauth_token, :oauth_token_secret])
+    |> cast(attrs, [:name, :password_hash, :food, :active_tweet, :oauth_token, :oauth_token_secret])
     |> add_password_hash(attrs["password"])
-    |> validate_required([:name, :password_hash, :food])
+    |> validate_required([:name, :password_hash, :food, :active_tweet])
     |> unique_constraint(:name)
   end
 end
