@@ -3,7 +3,7 @@ import { Nav, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { api_login, api_tauth } from './api';
+import { api_login, api_pinauth } from './api';
 import store from './store';
 import { ch_disconnect } from './socket.js';
 
@@ -54,8 +54,7 @@ function TwitterPinForm({twitter}) {
   function on_submit(ev) {
     ev.preventDefault();
     console.log(pin);
-    api_tauth(pin, twitter.req_token);
-    //api_login(name, pass);
+    api_pinauth(pin, twitter.req_token);
   }
 
   return (
@@ -71,7 +70,7 @@ function TwitterPinForm({twitter}) {
   );
 }
 
-const TwitterForm = connect(({twitter}) => ({twitter}))(TwitterPinForm);
+//const TwitterForm = connect(({twitter}) => ({twitter}))(TwitterPinForm);
 
 function LOI({session, twitter}) {
   if (session) {
@@ -79,7 +78,6 @@ function LOI({session, twitter}) {
       <div>
         <SessionInfo session={session} />
         <a href={twitter?.url}>Authorize Twitter</a>
-        <TwitterForm />
       </div>
     );
   } else {

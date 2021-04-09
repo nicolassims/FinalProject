@@ -20,6 +20,7 @@ function set_token(opts) {
 
 export function get_twitter_auth() {
   api_get("/twitter").then((data) => {
+    console.log("TWITTER AUTH PART 1")
     console.log(data);
     store.dispatch({
       type: "twitter/set",
@@ -28,8 +29,22 @@ export function get_twitter_auth() {
   });
 }
 
-export function api_tauth(pin, token) {
+export function api_pinauth(pin, token) {
   return api_post("/twitter", {pin, token});
+}
+
+export function api_tokenauth(verifier, token) {
+  return api_post("/twitter", {verifier, token}).then((data) => {
+    console.log(data);
+    if (data.error) {
+      // This function seems to be called twice, (react dev mode?)
+      // First call -> success, second call -> error = confusion
+      /*store.dispatch({
+        type: "error/set",
+        data: data.error,
+      });*/
+    }
+  });
 }
 
 export function api_tweet(tweet) {

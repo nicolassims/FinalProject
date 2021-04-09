@@ -42,6 +42,33 @@ defmodule FinalProjectWeb.TwitterController do
       |> send_resp(:created, Jason.encode!(%{}))
   end
 
+  def create(conn, %{"verifier" => verifier,"token" => token}) do
+    user = conn.assigns[:current_user]
+
+    acc_token = get_access_token(verifier, token)
+
+    IO.inspect("REQUEST TOKEN:")
+    IO.inspect(acc_token)
+
+    case acc_token do
+      {:error, _error} ->
+        conn
+        |> put_resp_header("content-type", "application/json; charset=UTF-8")
+        |> send_resp(:unauthorized, Jason.encode!(%{error: "Could not authorize twitter. PLease try again later."}))
+      _ ->
+        Users.update_user(user, %{oauth_token: Map.get(acc_token, "oauth_token"),
+                                        oauth_token_secret: Map.get(acc_token, "oauth_token_secret")})
+
+        user = FinalProject.Users.get_user!(user.id)
+        IO.inspect(user)
+
+
+        conn
+          |> put_resp_header("content-type", "application/json; charset=UTF-8")
+          |> send_resp(:created, Jason.encode!(%{success: "Twitter successfully authorized"}))
+    end
+  end
+
   def create(conn, %{"tweet" => tweet}) do
     user = conn.assigns[:current_user]
 

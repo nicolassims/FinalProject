@@ -10,6 +10,7 @@ import store from './store';
 import { set_user_cb, set_monster_cb, ch_connect } from './socket';
 import { connect } from 'react-redux';
 import { get_twitter_auth } from './api';
+import TwitterAuth from './twitterauth';
 
 function App({session}) {
   
@@ -46,6 +47,9 @@ function App({session}) {
         </Route>
         <Route path="/users/new">
           <UsersNew />
+        </Route>
+        <Route path="/auth/twitter">
+          <TwitterAuth />
         </Route>
       </Switch>
     </Container>

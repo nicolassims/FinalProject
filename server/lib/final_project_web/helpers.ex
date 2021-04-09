@@ -17,8 +17,7 @@ defmodule FinalProjectWeb.Helpers do
   end
 
   # 1. get request token
-  def get_request_token(url \\ nil)  do
-    config = ExTwitter.configure()
+  def get_request_token(url \\ "http://localhost:3000/auth/twitter")  do
     resp = ExTwitter.request_token(url)
     resp.oauth_token
   end
@@ -30,7 +29,7 @@ defmodule FinalProjectWeb.Helpers do
   end
 
   # 3. get access token with pin
-  def get_access_token(pin, token) do
+  def get_access_token(pin, token, third) do
     resp = ExTwitter.access_token(
       pin,
       token
@@ -42,6 +41,25 @@ defmodule FinalProjectWeb.Helpers do
       "id" => resp.user_id,
       "oauth_token" => resp.oauth_token,
       "oauth_token_secret" => resp.oauth_token_secret}
+  end
+
+  def get_access_token(verifier, token) do
+    resp = ExTwitter.API.Auth.access_token(
+      verifier,
+      token
+    )
+
+    IO.inspect(resp)
+
+    case resp do
+      {:error, _error} ->
+        resp
+      {:ok, resp_tok} ->
+        %{"name" => resp_tok.screen_name,
+          "id" => resp_tok.user_id,
+          "oauth_token" => resp_tok.oauth_token,
+          "oauth_token_secret" => resp_tok.oauth_token_secret}
+    end
   end
 
   # set the ExTwitter config for a users oauth_token and the secret
