@@ -10,8 +10,8 @@ export DATABASE_URL=ecto://final_project:bad@localhost/final_project_prod
 
 echo "Building..."
 
-(cd server && mix deps.get)
-(cd server && mix compile)
+mix deps.get
+mix compile
 
 CFGD=$(readlink -f ~/.config/final_project)
 
@@ -33,14 +33,14 @@ export SECRET_KEY_BASE
 DB_PASS=$(cat "$CFGD/db_pass")
 export DATABASE_URL=ecto://final_project:$DB_PASS@localhost/final_project_prod
 
-(cd server && mix ecto.create)
-(cd server && mix ecto.migrate)
+mix ecto.create
+mix ecto.migrate
 
-(cd server && mix phx.digest)
+mix phx.digest
 
 
 echo "Generating release..."
-(cd server && mix release)
+mix release
 
 
 echo "Starting app..."
