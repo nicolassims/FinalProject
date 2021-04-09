@@ -22,7 +22,7 @@ function save_twitter(twitter) {
 
 function restore_twitter() {
     let twitter = localStorage.getItem("twitter");
-    if (!twitter) {
+    if (!twitter || twitter == undefined) {
         return null;
     }
     twitter = JSON.parse(twitter);

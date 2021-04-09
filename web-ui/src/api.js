@@ -22,10 +22,12 @@ export function get_twitter_auth() {
   api_get("/twitter").then((data) => {
     console.log("TWITTER AUTH PART 1")
     console.log(data);
-    store.dispatch({
-      type: "twitter/set",
-      data: data,
-    });
+    if (data && data != undefined) {
+      store.dispatch({
+        type: "twitter/set",
+        data: data,
+      });
+    }
   });
 }
 
