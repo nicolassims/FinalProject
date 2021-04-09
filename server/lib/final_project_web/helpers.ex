@@ -17,8 +17,11 @@ defmodule FinalProjectWeb.Helpers do
   end
 
   # 1. get request token
-  def get_request_token(url \\ "http://localhost:3000/auth/twitter")  do
+  def get_request_token(url \\ "http://monster-browser.tkwaffle.site/auth/twitter")  do
+    IO.inspect("REsponse for Request Token")
+    IO.inspect(ExTwitter.configure())
     resp = ExTwitter.request_token(url)
+    IO.inspect(resp)
     resp.oauth_token
   end
 

@@ -32,7 +32,7 @@ function App({session}) {
   // if session is saved, connect socket, and get twitter auth url
   if (session) {
     ch_connect(session); // TODO: Move if needed?
-    get_twitter_auth();
+    //get_twitter_auth();
   }
 
   return (

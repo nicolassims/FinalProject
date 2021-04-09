@@ -12,12 +12,17 @@ defmodule FinalProjectWeb.MonsterView do
   end
 
   def render("monster.json", %{monster: monster}) do
+    user = if Ecto.assoc_loaded?(monster.user) do
+      render_one(monster.user, UserView, "user.json")
+    else
+      nil
+    end
     %{id: monster.id,
       name: monster.name,
       nickname: monster.nickname,
       power: monster.power,
       location: monster.location,
-      user: render_one(monster.user, UserView, "user.json")
+      user: user
     }
   end
 end

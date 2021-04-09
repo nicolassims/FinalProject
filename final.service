@@ -1,0 +1,17 @@
+[Unit]
+Description=Final Project Monster Browser game
+
+[Service]
+Type=simple
+User=monster_browser
+Group=monster_browser
+WorkingDirectory=/home/monster_browser/FinalProject
+ExecStart=/bin/bash /home/monster_browser/FinalProject/server/start.sh
+Restart=on-failure
+Environment=MIX_ENV=prod
+Environment=PROD=t
+Environment=PORT=4799
+Environment=LANG=en_US.UTF-8
+
+[Install]
+WantedBy=multi-user.target

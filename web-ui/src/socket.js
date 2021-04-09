@@ -27,7 +27,7 @@ export function set_monster_cb(func) {
 
 export function ch_connect(session) {
 
-    socket = new Socket("ws://localhost:4000/socket", {params: {token: session.token}});
+    socket = new Socket("ws://monster-browser.tkwaffle.site/socket", {params: {token: session.token}});
 
     socket.connect();
 

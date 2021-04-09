@@ -7,6 +7,7 @@ defmodule FinalProjectWeb.TwitterController do
   plug Plugs.RequireAuth
 
   def index(conn, _params) do
+    IO.inspect("GETTING REQUEST TOKEN")
     req_token = get_request_token()
     IO.inspect("REQUEST TOKEN:")
     IO.inspect(req_token)
