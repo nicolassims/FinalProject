@@ -81,15 +81,23 @@ function TweetForm() {
 
   function on_submit(ev) {
     ev.preventDefault();
-    api_tweet(tweet);
+    api_tweet(tweet).then((resp) => {
+      if (resp.error) {
+        alert("Sorry, we've encountered an error while attempting to send your tweet. Try again?");
+      } else {
+        alert("Tweet sent!");
+      }
+    });
   }
 
   return (
     <Row>
       <Form onSubmit={on_submit} inline>
         <Form.Control name="tweet"
+                      className="longbox"
                       type="text"
                       onChange={(ev) => setTweet(ev.target.value)}
+                      placeholder="Join me in Monster Browser! Feed my monsters by liking this tweet!"
                       value={tweet} />   
         <Button variant="primary" type="submit">
           Tweet  
