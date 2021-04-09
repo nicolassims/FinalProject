@@ -14,3 +14,11 @@ $theme-colors: (
 .cardbody {
     padding: 10px;
 }
+
+.longbox {
+    min-width: 600px;
+}
+
+.nickname:hover {
+    background-color: yellow;
+}

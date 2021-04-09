@@ -1,8 +1,6 @@
 import store from './store';
 import { ch_connect } from './socket.js'
 
-let pinger = null;
-
 function set_token(opts) {
   let state = store.getState();
   let token = state?.session?.token;
@@ -22,6 +20,7 @@ function set_token(opts) {
 
 export function get_twitter_auth() {
   api_get("/twitter").then((data) => {
+    console.log("TWITTER AUTH PART 1")
     console.log(data);
     store.dispatch({
       type: "twitter/set",
@@ -30,8 +29,22 @@ export function get_twitter_auth() {
   });
 }
 
-export function api_tauth(pin, token) {
+export function api_pinauth(pin, token) {
   return api_post("/twitter", {pin, token});
+}
+
+export function api_tokenauth(verifier, token) {
+  return api_post("/twitter", {verifier, token}).then((data) => {
+    console.log(data);
+    if (data.error) {
+      // This function seems to be called twice, (react dev mode?)
+      // First call -> success, second call -> error = confusion
+      /*store.dispatch({
+        type: "error/set",
+        data: data.error,
+      });*/
+    }
+  });
 }
 
 export function api_tweet(tweet) {
@@ -74,13 +87,11 @@ export function create_user(user) {
   return api_post("/users", {user});
 }
 
-export function fetch_users() {
-  if (pinger != null) {//if there is currently an interval set up...
-    clearInterval(pinger);//...clear the interval
-    pinger = null;//...and assign the interval to null for future reference
-  }
-  //pinger = window.setInterval(() => { fetch_users() }, 1000);//fetch a fresh copy of the users every second.
+export function create_monster(monster) {
+  return api_post("/monsters", {monster});
+}
 
+export function fetch_users() {
   api_get("/users").then((data) => store.dispatch({
       type: 'users/set',
       data: data,

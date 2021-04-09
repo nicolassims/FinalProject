@@ -7,9 +7,10 @@ import Feed from './Feed';
 import UsersList from './Users/List';
 import UsersNew from './Users/New';
 import store from './store';
-import { set_user_cb, ch_connect } from './socket';
+import { set_user_cb, set_monster_cb, ch_connect } from './socket';
 import { connect } from 'react-redux';
 import { get_twitter_auth } from './api';
+import TwitterAuth from './twitterauth';
 
 function App({session}) {
   
@@ -17,6 +18,13 @@ function App({session}) {
   set_user_cb((data) => {
     store.dispatch({
       type: 'users/set',
+      data: data,
+    })
+  });
+
+  set_monster_cb((data) => {
+    store.dispatch({
+      type: 'monsters/set',
       data: data,
     })
   });
@@ -39,6 +47,9 @@ function App({session}) {
         </Route>
         <Route path="/users/new">
           <UsersNew />
+        </Route>
+        <Route path="/auth/twitter">
+          <TwitterAuth />
         </Route>
       </Switch>
     </Container>

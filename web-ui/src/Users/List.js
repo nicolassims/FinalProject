@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function UsersList({users}) {
-  let rows = users.map((user) => (
+  let rows = users
+    .sort((a, b) => (a.food < b.food) ? 1 : -1)
+    .map((user) => (
     <tr key={user.id}>
       <td>{user.name}</td>
       <td>{user.food}</td>
@@ -35,7 +37,6 @@ function UsersList({users}) {
       </Row>
     </div>
   );
-
 }
 
 function state2props({users}) {

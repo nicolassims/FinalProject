@@ -2,6 +2,7 @@ defmodule FinalProject.UpdateRepo do
   use GenServer
 
   alias FinalProject.Users
+  alias FinalProject.Monsters
   alias FinalProjectWeb.Helpers
 
   def start_link(args) do
@@ -22,7 +23,8 @@ defmodule FinalProject.UpdateRepo do
       foodcount = Enum.reduce(user.monsters, 0, fn monster, acc ->
         if (monster.location == 0) do#if they're on the farm, then increase your food count.
           round(:math.sqrt(acc + monster.power))
-        else#otherwise, increase the monster's power. But I still need to implement this.
+        else
+          Monsters.update_monster(monster, %{power: monster.power + 1})
           acc
         end
       end)
@@ -34,6 +36,7 @@ defmodule FinalProject.UpdateRepo do
     :timer.sleep(1_000)
 
     Helpers.broadcast_users()
+    Helpers.broadcast_monsters()
 
     loop()
   end

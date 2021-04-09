@@ -3,7 +3,7 @@ import { Nav, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { api_login, api_tauth } from './api';
+import { api_login } from './api';
 import store from './store';
 import { ch_disconnect } from './socket.js';
 
@@ -48,38 +48,11 @@ function SessionInfo({session}) {
   );
 }
 
-function TwitterPinForm({twitter}) {
-  const [pin, setPin] = useState("");
-
-  function on_submit(ev) {
-    ev.preventDefault();
-    console.log(pin);
-    api_tauth(pin, twitter.req_token);
-    //api_login(name, pass);
-  }
-
-  return (
-    <Form onSubmit={on_submit} inline>
-      <Form.Control name="pin"
-                    type="text"
-                    onChange={(ev) => setPin(ev.target.value)}
-                    value={pin} />   
-      <Button variant="primary" type="submit">
-        Authorize  
-      </Button>          
-    </Form>
-  );
-}
-
-const TwitterForm = connect(({twitter}) => ({twitter}))(TwitterPinForm);
-
-function LOI({session, twitter}) {
+function LOI({session}) {
   if (session) {
     return (
       <div>
         <SessionInfo session={session} />
-        <a href={twitter?.url}>Authorize Twitter</a>
-        <TwitterForm />
       </div>
     );
   } else {
@@ -89,7 +62,7 @@ function LOI({session, twitter}) {
 
 const LoginOrInfo = connect(({session, twitter}) => ({session, twitter}))(LOI);
 
-function AppNav({error}) {
+function AppNav({error, twitter}) {
   let error_row = null;
 
   if (error) {
@@ -110,6 +83,9 @@ function AppNav({error}) {
             <Link to="/">Feed</Link>
             <Link to="/users">Users</Link>
           </Nav>
+        </Col>
+        <Col>
+          <Button href={twitter?.url}>Authorize Twitter</Button>
         </Col>
         <Col>
           <LoginOrInfo />
@@ -134,4 +110,4 @@ function Link({to, children}) {
   );
 }
 
-export default connect(({error}) => ({error}))(AppNav);
+export default connect(({error, twitter}) => ({error, twitter}))(AppNav);
