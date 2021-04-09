@@ -81,7 +81,8 @@ function TweetForm() {
 
   function on_submit(ev) {
     ev.preventDefault();
-    api_tweet(tweet).then((resp) => {
+
+    api_tweet(tweet === "" ? "Join me in Monster Browser! Feed my monsters by liking this tweet!" : tweet).then((resp) => {
       if (resp.error) {
         alert("Sorry, we've encountered an error while attempting to send your tweet. Try again?");
       } else {
