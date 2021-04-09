@@ -1,5 +1,11 @@
 use Mix.Config
 
+config :cors_plug,
+  origin: ["http://monster-browser.tkwaffle.site"],
+  max_age: 86400,
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  headers: ["x-auth", "content-type"]
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,8 +16,8 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :final_project, FinalProjectWeb.Endpoint,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "example.com", port: 80]
+  ##cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info

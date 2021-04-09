@@ -49,7 +49,7 @@ export function api_tweet(tweet) {
 }
 
 export async function api_get(path) {
-  let text = await fetch("http://localhost:4000/api/v1" + path, set_token({}));
+  let text = await fetch("http://monster-browser.tkwaffle.site/api/v1" + path, set_token({}));
   let resp = await text.json();
   return resp.data;
 }
@@ -63,7 +63,7 @@ async function api_post(path, data) {
     body: JSON.stringify(data)
   };
   console.log(opts);
-  let text = await fetch("http://localhost:4000/api/v1" + path, set_token(opts));
+  let text = await fetch("http://monster-browser.tkwaffle.site/api/v1" + path, set_token(opts));
   return await text.json();
 }
 
@@ -76,7 +76,7 @@ async function api_patch(path, data) {
     body: JSON.stringify(data)
   };
   console.log(opts);
-  let text = await fetch("http://localhost:4000/api/v1" + path, set_token(opts));
+  let text = await fetch("http://monster-browser.tkwaffle.site/api/v1" + path, set_token(opts));
   return await text.json();
 }
 
