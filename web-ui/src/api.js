@@ -37,12 +37,9 @@ export function api_tokenauth(verifier, token) {
   return api_post("/twitter", {verifier, token}).then((data) => {
     console.log(data);
     if (data.error) {
-      // This function seems to be called twice, (react dev mode?)
-      // First call -> success, second call -> error = confusion
-      /*store.dispatch({
-        type: "error/set",
-        data: data.error,
-      });*/
+      alert("Authentication seems to have failed. Try again?");
+    } else {
+      alert("Authentication succeeded!");
     }
   });
 }
