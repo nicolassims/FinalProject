@@ -45,4 +45,4 @@ mix release
 
 echo "Starting app..."
 
-PROD=t ./server/start.sh
+PROD=t ./start.sh
