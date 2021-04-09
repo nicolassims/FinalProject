@@ -13,6 +13,7 @@ defmodule FinalProjectWeb.UserView do
   def render("user.json", %{user: user}) do
     %{id: user.id,
       name: user.name,
-      food: user.food}
+      food: user.food,
+      oauth_token: user.oauth_token}
   end
 end
