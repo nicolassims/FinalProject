@@ -16,7 +16,7 @@ config :cors_plug,
 # which you should run after static files are built and
 # before starting your production server.
 config :final_project, FinalProjectWeb.Endpoint,
-  url: [host: "example.com", port: 80]
+  url: [host: "monster-browser.tkwaffle.site", port: 80]
   ##cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
