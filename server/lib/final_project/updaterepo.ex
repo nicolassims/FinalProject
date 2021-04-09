@@ -22,7 +22,7 @@ defmodule FinalProject.UpdateRepo do
     Enum.each(Users.list_users(), fn user ->
       foodcount = Enum.reduce(user.monsters, 0, fn monster, acc ->
         if (monster.location == 0) do#if they're on the farm, then increase your food count.
-          round(:math.sqrt(acc + monster.power))
+          acc + round(:math.sqrt(monster.power))
         else
           Monsters.update_monster(monster, %{power: monster.power + 1})
           acc
