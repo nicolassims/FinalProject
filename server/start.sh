@@ -24,4 +24,4 @@ export TWITTER_CONSUMER_SECRET=$(cat "$CFGD/api_secret_key")
 export TWITTER_ACCESS_TOKEN=$(cat "$CFGD/access_token")
 export TWITTER_ACCESS_TOKEN_SECRET=$(cat "$CFGD/access_token_secret")
 
-(cd server && _build/prod/rel/final_project/bin/final_project start)
+_build/prod/rel/final_project/bin/final_project start

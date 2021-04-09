@@ -45,4 +45,4 @@ echo "Generating release..."
 
 echo "Starting app..."
 
-PROD=t ./start.sh
+PROD=t ./server/start.sh
